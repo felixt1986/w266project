@@ -1,17 +1,19 @@
-# Recurrent Neural Network Language Model
+# W266 Project: Social Media's impact on Revenue
 
-This assignment consists of two notebooks and a number of py files.  Files you should pay special attention to:
+This github contains the notebook required to reproduce the research paper cited above
 
-* **Start here:** [rnnlm-instructions.ipynb](rnnlm-instructions.ipynb) (Instructions: do not edit.)
-* [rnnlm-workbook.ipynb](rnnlm-workbook.ipynb) (Answer notebook: your work goes here.)
-* [rnnlm.py](rnnlm.py) (LM implementation, and most of your code.)
+BaseLineModel.ipynb	- This notebook is used to generate the Baseline Model
 
-__Hint:__ Read the instructions!
+CreateVocabLib.ipynb - This notebook is used to generate the vocab list from the Tweet Corpus
 
-## Other resources
+vocab1.csv - This is the output from the CreateVocabLib.ipynb
 
-This assignment builds on the nplm notebook, so you may want to review that before you start. (**Hint:** borrow ideas and code!)
+w266_FinalProject_LeeTsui_Iteration1_Workbook.ipynb	- This notebook is used to generate the first iteration model per research paper
 
-* [nplm.ipynb](../../materials/nplm/nplm.ipynb)
+w266_FinalProject_LeeTsui_Iteration2_Workbook.ipynb	- This notebook is used to generate the second iteration model per research paper
 
-As always, you should commit your changes often with `git add` and `git commit`.
+w266_FinalProject_LeeTsui_Iteration3_Workbook.ipynb	- This notebook is used to generate the third iteration model per research paper
+
+w266_FinalProject_LeeTsui_Iteration4_Workbook.ipynb- This notebook is used to generate the fourth iteration model per research paper
+
+The rest of the notebook are supporting libraries that are imported into the main Workbooks
