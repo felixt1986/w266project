@@ -204,8 +204,8 @@ class RNNLM(object):
         # replacement for tf.matmul that will handle the "time" dimension
         # properly.        
         with tf.name_scope("Output_Layer"):
-            self.W_out_ = tf.Variable(tf.random_uniform([self.H, self.V], -1.0, 1.0), name="W_out")
-            self.b_out_ = tf.Variable(tf.zeros([self.V,], dtype=tf.float32), name="b_out")
+            self.W_out_ = tf.Variable(tf.random_uniform([self.H, 2], -1.0, 1.0), name="W_out")
+            self.b_out_ = tf.Variable(tf.zeros([2,], dtype=tf.float32), name="b_out")
             self.logits_ = matmul3d(self.output_,self.W_out_) + self.b_out_
 
         # Loss computation (true loss, for prediction)
@@ -242,12 +242,7 @@ class RNNLM(object):
             # Loss computation (sampled, for training)
 
         with tf.name_scope("Loss_Function"):
-            self.train_loss_ = tf.reduce_mean(
-                tf.nn.sampled_softmax_loss(
-                    weights=tf.transpose(self.W_out_),biases=self.b_out_, labels=tf.reshape(self.target_y_, [-1,1]), 
-                    inputs=tf.reshape(self.output_, [-1,self.H]), num_sampled=self.softmax_ns, 
-                    num_classes=self.V),
-                name="sampled_softmax_loss")
+            self.train_loss_ = tf.reduce_mean(tf.nn.sparse_softmax_cross_entropy_with_logits(labels=self.target_y_,logits=self.logits_, name="per_example_loss"), name="train_loss")
 #             print(self.W_out_.get_shape())
 #             print(self.output_.get_shape())
 #             print(self.target_y_.get_shape())
@@ -278,8 +273,8 @@ class RNNLM(object):
 
         with tf.name_scope("Prediction"):
             self.pred_proba_ = tf.nn.softmax(self.logits_, name="pred_proba")
-            self.pred_max_ = tf.argmax(self.logits_, 2, name="pred_max")
-            self.pred_samples_ = tf.reshape(tf.multinomial(tf.reshape(self.logits_, [-1, self.V]), num_samples=1, name="pred_samples"), [self.batch_size_, self.max_time_, 1])
+            self.pred_max_ = tf.argmax(self.pred_proba_, 2, name="pred_max")
+            self.pred_samples_ = tf.reshape(tf.multinomial(tf.reshape(self.pred_max_, [-1, 1]), num_samples=1, name="pred_samples"), [self.batch_size_, self.max_time_, 1])
 
             
         #### END(YOUR CODE) ####
