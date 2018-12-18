@@ -273,8 +273,11 @@ class RNNLM(object):
 
         with tf.name_scope("Prediction"):
             self.pred_proba_ = tf.nn.softmax(self.logits_, name="pred_proba")
+#             print(self.pred_proba_)
             self.pred_max_ = tf.argmax(self.pred_proba_, 2, name="pred_max")
-            self.pred_samples_ = tf.reshape(tf.multinomial(tf.reshape(self.pred_max_, [-1, 1]), num_samples=1, name="pred_samples"), [self.batch_size_, self.max_time_, 1])
+#             print(self.pred_max_)
+#             self.pred_samples_ = self.pred_max
+#             self.pred_samples_ = tf.reshape(tf.multinomial(tf.reshape(self.pred_proba_, [-1, 1]), num_samples=1, name="pred_samples"), [self.batch_size_, self.max_time_, 1])
 
             
         #### END(YOUR CODE) ####
